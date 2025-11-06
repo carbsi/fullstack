@@ -1,5 +1,8 @@
 const express = require('express')
 const app = express()
+(app.use(morgan('tiny')))
+app.use(cors())
+app.use(express.static('dist'))
 
 // tää pitää olla et post toimii, joku json-juttu
 app.use(express.json())
