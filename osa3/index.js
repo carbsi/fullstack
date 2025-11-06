@@ -1,108 +1,91 @@
+// Load environment variables from .env file
+require('dotenv').config() 
+
 const express = require('express')
+const morgan = require('morgan')
+const cors = require('cors')
 const app = express()
-(app.use(morgan('tiny')))
+
+// Import the Mongoose model we created
+const Person = require('./models/person')
+
+app.use(express.json())
 app.use(cors())
 app.use(express.static('dist'))
 
-// tää pitää olla et post toimii, joku json-juttu
-app.use(express.json())
+// Use morgan, but only if it's not a POST request
+// (We will make a custom POST logger later if needed)
+app.use(morgan('tiny', {
+  skip: (req, res) => req.method === 'POST'
+}))
 
-// tää on "tietokanta"
-let persons = [
-  {
-    "id": 1,
-    "name": "Arto Hellas",
-    "number": "040-123456"
-  },
-  {
-    "id": 2,
-    "name": "Ada Lovelace",
-    "number": "39-44-5323523"
-  },
-  {
-    "id": 3,
-    "name": "Dan Abramov",
-    "number": "12-43-234345"
-  },
-  {
-    "id": 4,
-    "name": "Mary Poppendieck",
-    "number": "39-23-6423122"
-  }
-]
+// --- OLD DATA IS GONE ---
+// let persons = [ ... ] 
+// We no longer need this, it's all in MongoDB!
 
-// 3.1: hae kaikki
+// --- ROUTES ---
+
+// GET ALL: Fetches all persons from the database
 app.get('/api/persons', (req, res) => {
-  res.json(persons)
+  // Use the Person model to find all documents
+  Person.find({}).then(persons => {
+    res.json(persons)
+  })
 })
 
-// 3.2: info sivu
-app.get('/info', (req, res) => {
-  const personCount = persons.length
-  const requestTime = new Date()
-
-  res.send(
-    `<p>Phonebook has info for ${personCount} people</p>
-     <p>${requestTime}</p>`
-  )
-})
-
-// 3.3: hae yks
+// GET ONE: Fetches a single person by their ID
 app.get('/api/persons/:id', (req, res) => {
-  const id = Number(req.params.id)
-  const person = persons.find(p => p.id === id)
-
-  if (person) {
-    res.json(person)
-  } else {
-    res.status(404).end() // 404 jos ei löydy
-  }
+  Person.findById(req.params.id).then(person => {
+    if (person) {
+      res.json(person)
+    } else {
+      // If no person is found with that ID
+      res.status(404).end()
+    }
+  })
+  // We'll add error handling (like for a malformed ID) in Osa 3c
+  .catch(error => {
+    console.log(error)
+    res.status(400).send({ error: 'malformatted id' })
+  })
 })
 
-// 3.4: poista
-app.delete('/api/persons/:id', (req, res) => {
-  const id = Number(req.params.id)
-  persons = persons.filter(p => p.id !== id)
-  res.status(204).end()
+// DELETE ONE: Deletes a person by their ID
+app.delete('/api/persons/:id', (req, res, next) => {
+  Person.findByIdAndRemove(req.params.id)
+    .then(result => {
+      // The delete was successful
+      res.status(204).end()
+    })
+    .catch(error => next(error)) // Passes error to a future error handler
 })
 
-// joku random id
-const generateId = () => {
-  return Math.floor(Math.random() * 1000000)
-}
-
-// 3.5 & 3.6: lisää uus
+// ADD ONE: Creates a new person and saves to database
 app.post('/api/persons', (req, res) => {
   const body = req.body
 
-  // 3.6: checkit et nimi ja numero on
+  // Basic validation (we will improve this in Osa 3c)
   if (!body.name || !body.number) {
     return res.status(400).json({
       error: 'name or number is missing'
     })
   }
 
-  // tsekataan onko nimi jo
-  const nameExists = persons.find(p => p.name === body.name)
-  if (nameExists) {
-    return res.status(400).json({
-      error: 'name must be unique'
-    })
-  }
-
-  // 3.5: uuden luonti
-  const newPerson = {
-    id: generateId(),
+  // Create a new Person object based on the Mongoose model
+  const person = new Person({
     name: body.name,
-    number: body.number
-  }
+    number: body.number,
+  })
 
-  persons = persons.concat(newPerson)
-  res.json(newPerson)
+  // Save the new person to the database
+  person.save().then(savedPerson => {
+    // Respond with the saved person
+    res.json(savedPerson)
+  })
 })
 
-
-const PORT = 3001
+// --- SERVER SETUP ---
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
-  console.log(`Serveri pöhisee portissa ${PORT}`) // joo
+  console.log(`Server running on port ${PORT}`)
 })
