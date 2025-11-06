@@ -1,0 +1,45 @@
+### 1. Hae KAIKKI henkilöt (Tehtävä 3.1)
+GET http://localhost:3001/api/persons
+
+
+### 2. Hae INFO-sivu (Tehtävä 3.2)
+GET http://localhost:3001/info
+
+
+### 3. Hae YKSI henkilö (esim. id:llä 2) (Tehtävä 3.3)
+GET http://localhost:3001/api/persons/2
+
+
+### 4. POISTA henkilö (esim. id:llä 3) (Tehtävä 3.4)
+DELETE http://localhost:3001/api/persons/3
+
+
+### 5. LISÄÄ uusi henkilö (Toimiva) (Tehtävä 3.5)
+# Huom: POST-pyynnössä pitää kertoa Content-Type
+# ja antaa data (body) tyhjän rivin jälkeen
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Kalle Koodari",
+  "number": "050-123123"
+}
+
+
+### 6. TESTAA VALIDointi (Nimi puuttuu) (Tehtävä 3.6)
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "number": "050-999888"
+}
+
+
+### 7. TESTAA VALIDointi (Nimi on jo listalla) (Tehtävä 3.6)
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Arto Hellas",
+  "number": "111-222333"
+}
