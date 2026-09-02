@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 const Part = ({ part }) => {
   return (
@@ -6,6 +6,13 @@ const Part = ({ part }) => {
       {part.name} {part.exercises}
     </p>
   );
+};
+
+Part.propTypes = {
+  part: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    exercises: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default Part;

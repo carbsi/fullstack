@@ -1,29 +1,6 @@
-import React from 'react';
-
-// Header-komponentti näyttää kurssin nimen
-const Header = ({ courseName }) => {
-  return <h2>{courseName}</h2>;
-};
-
-// Part-komponentti näyttää yksittäisen osan tiedot
-const Part = ({ part }) => {
-  return (
-    <p>
-      {part.name} {part.exercises}
-    </p>
-  );
-};
-
-// Content-komponentti näyttää kaikki kurssin osat
-const Content = ({ parts }) => {
-  return (
-    <div>
-      {parts.map(part => (
-        <Part key={part.id} part={part} />
-      ))}
-    </div>
-  );
-};
+import PropTypes from 'prop-types';
+import Content from './Content';
+import Header from './Header';
 
 // Course-komponentti näyttää koko kurssin
 const Course = ({ course }) => {
@@ -37,6 +14,17 @@ const Course = ({ course }) => {
       <p><strong>Total exercises: {totalExercises}</strong></p>
     </div>
   );
+};
+
+Course.propTypes = {
+  course: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    parts: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      exercises: PropTypes.number.isRequired,
+    })).isRequired,
+  }).isRequired,
 };
 
 export default Course;
