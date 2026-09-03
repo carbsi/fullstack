@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: carbsi-fso-phonebook
+    runtime: node
+    plan: free
+    branch: main
+    buildCommand: npm --prefix osa3 ci && npm --prefix osa2/phonebook ci && npm --prefix osa3 run build:ui
+    startCommand: npm --prefix osa3 start
+    healthCheckPath: /api/persons
+    envVars:
+      - key: NODE_VERSION
+        value: 22.13.0
+      - key: MONGODB_URI
+        sync: false
