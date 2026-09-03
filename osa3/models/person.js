@@ -1,38 +1,46 @@
 const mongoose = require('mongoose')
 
-// Ladataan .env-tiedoston muuttujat käyttöön
-require('dotenv').config()
+mongoose.set('strictQuery', false)
 
-// Otetaan MONGODB_URI-muuttuja .env-tiedostosta
 const url = process.env.MONGODB_URI
 
-console.log('Yhdistetään tietokantaan...')
+if (!url) {
+  console.error('mongodb connection string is missing')
+  process.exit(1)
+}
 
-// Yhdistetään tietokantaan
-mongoose.connect(url)
-  .then(result => {
-    console.log('Yhdistetty MongoDB:hen!')
-  })
-  .catch((error) => {
-    console.log('Virhe yhdistäessä MongoDB:hen:', error.message)
-  })
+console.log('connecting to mongodb')
 
-// Määritellään "skeema" eli rakenne henkilölle
+mongoose.connect(url, { family: 4 })
+  .then(() => console.log('connected to mongodb'))
+  .catch(error => console.log('error connecting to mongodb:', error.message))
+
 const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
+  name: {
+    type: String,
+    required: true,
+    minlength: 3,
+    unique: true,
+    trim: true,
+  },
+  number: {
+    type: String,
+    required: true,
+    minlength: 8,
+    validate: {
+      validator: value => /^\d{2,3}-\d+$/.test(value),
+      message: props => `${props.value} is not a valid phone number`,
+    },
+  },
 })
 
-// Muokataan skeeman toJSON-metodia (miten data palautetaan)
 personSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
-    // Muutetaan tietokannan _id-objekti id-merkkijonoksi
+  transform: (_document, returnedObject) => {
+    // oma huomio: frontend käyttää id:tä, joten mongoosen _id muutetaan tässä
     returnedObject.id = returnedObject._id.toString()
-    // Poistetaan turhat _id ja __v kentät palautuksesta
     delete returnedObject._id
     delete returnedObject.__v
-  }
+  },
 })
 
-// Viedään malli (Model) käytettäväksi muissa tiedostoissa
 module.exports = mongoose.model('Person', personSchema)

@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# The part 3 backend serves this production build.
+!osa3/dist/
+!osa3/dist/**
+
 # Environment files may contain credentials. Keep examples only.
 .env
 .env.*

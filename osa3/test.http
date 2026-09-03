@@ -1,45 +1,56 @@
-### 1. Hae KAIKKI henkilöt (Tehtävä 3.1)
-GET http://localhost:3001/api/persons
+@baseUrl = http://localhost:3001
 
+### hae kaikki henkilöt
+GET {{baseUrl}}/api/persons
 
-### 2. Hae INFO-sivu (Tehtävä 3.2)
-GET http://localhost:3001/info
+### tarkista info-sivu
+GET {{baseUrl}}/info
 
-
-### 3. Hae YKSI henkilö (esim. id:llä 2) (Tehtävä 3.3)
-GET http://localhost:3001/api/persons/2
-
-
-### 4. POISTA henkilö (esim. id:llä 3) (Tehtävä 3.4)
-DELETE http://localhost:3001/api/persons/3
-
-
-### 5. LISÄÄ uusi henkilö (Toimiva) (Tehtävä 3.5)
-# Huom: POST-pyynnössä pitää kertoa Content-Type
-# ja antaa data (body) tyhjän rivin jälkeen
-POST http://localhost:3001/api/persons
+### lisää testihenkilö ja tallenna vastaus myöhempiä pyyntöjä varten
+# @name createPerson
+POST {{baseUrl}}/api/persons
 Content-Type: application/json
 
 {
-  "name": "Kalle Koodari",
-  "number": "050-123123"
+  "name": "rest client test",
+  "number": "040-1234567"
 }
 
+### hae juuri lisätty henkilö
+GET {{baseUrl}}/api/persons/{{createPerson.response.body.id}}
 
-### 6. TESTAA VALIDointi (Nimi puuttuu) (Tehtävä 3.6)
-POST http://localhost:3001/api/persons
+### päivitä juuri lisätyn henkilön numero
+PUT {{baseUrl}}/api/persons/{{createPerson.response.body.id}}
 Content-Type: application/json
 
 {
-  "number": "050-999888"
+  "name": "rest client test",
+  "number": "040-7654321"
 }
 
-
-### 7. TESTAA VALIDointi (Nimi on jo listalla) (Tehtävä 3.6)
-POST http://localhost:3001/api/persons
+### testaa liian lyhyt nimi
+POST {{baseUrl}}/api/persons
 Content-Type: application/json
 
 {
-  "name": "Arto Hellas",
-  "number": "111-222333"
+  "name": "ab",
+  "number": "040-1234567"
 }
+
+### testaa vääränmuotoinen numero
+POST {{baseUrl}}/api/persons
+Content-Type: application/json
+
+{
+  "name": "invalid number test",
+  "number": "12345678"
+}
+
+### poista juuri lisätty henkilö
+DELETE {{baseUrl}}/api/persons/{{createPerson.response.body.id}}
+
+### testaa virheellinen mongo id
+GET {{baseUrl}}/api/persons/not-an-id
+
+### testaa tuntematon osoite
+GET {{baseUrl}}/api/unknown

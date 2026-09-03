@@ -104,15 +104,23 @@ const App = () => {
 
   const handleRemove = (id, name) => {
     if (window.confirm(`Delete ${name}?`)) {
-      personService.remove(id).then(() => {
-        setAllPersons((prevPersons) =>
-          prevPersons.filter((person) => person.id !== id)
-        );
-        setNotification({
-          type: "success",
-          text: `${name} was successfully deleted`,
+      personService
+        .remove(id)
+        .then(() => {
+          setAllPersons((prevPersons) =>
+            prevPersons.filter((person) => person.id !== id)
+          );
+          setNotification({
+            type: "success",
+            text: `${name} was successfully deleted`,
+          });
+        })
+        .catch((error) => {
+          setNotification({
+            type: "error",
+            text: error.response?.data?.error || "could not delete person",
+          });
         });
-      });
     }
   };
 
