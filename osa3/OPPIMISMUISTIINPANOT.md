@@ -1,4 +1,4 @@
-# Osa 3 – omat oppimismuistiinpanot
+# Osa 3 – omat oppimismuistiinpanottttttt
 
 tässä ovat osan tärkeimmät asiat lyhyesti. muistiinpanoja voi täydentää myöhemmin.
 
@@ -10,7 +10,7 @@ tässä ovat osan tärkeimmät asiat lyhyesti. muistiinpanoja voi täydentää m
 - tietokantayhteys suljetaan vasta operaation jälkeen, koska muuten kysely voi jäädä kesken.
 - salasana säilytetään `.env`-tiedostossa, jotta se ei päädy git-historiaan.
 
-## Tehtävä 3.16: virheenkäsittelymiddleware
+## Tehtävä 3.16: virheenkäsittelymiddlewaree
 
 - express-middleware käsittelee pyynnön matkalla seuraavaan vaiheeseen.
 - `next(error)` siirtää virheen expressin virheenkäsittelijälle.
@@ -27,3 +27,5 @@ tässä ovat osan tärkeimmät asiat lyhyesti. muistiinpanoja voi täydentää m
 1. route määrittelee mitä tiettyyn url-osoitteeseen ja http-metodiin vastataan.
 2. tietokantaoperaatiot ovat asynkronisia, joten onnistuminen ja virheet käsitellään promisen kautta.
 3. salaisuudet kuuluvat ympäristömuuttujiin, eivät lähdekoodiin tai git-historiaan.
+
+// oma huomio:add me
