@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const config = require('./config')
 const logger = require('./logger')
 const User = require('../models/user')
-
+// tässä token erotetaan omaan middlewareen
 const requestLogger = (request, _response, next) => {
   logger.info(request.method, request.path)
   next()
