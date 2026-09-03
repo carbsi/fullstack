@@ -18,7 +18,7 @@ const tokenExtractor = (request, _response, next) => {
 
   next()
 }
-
+// tässä token otetaan talteen ennen reittiä
 const userExtractor = async (request, response, next) => {
   try {
     if (!request.token || !config.SECRET) {
