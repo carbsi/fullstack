@@ -2,6 +2,7 @@ services:
   - type: web
     name: carbsi-fso-phonebook
     runtime: node
+    region: frankfurt
     plan: free
     branch: main
     buildCommand: npm --prefix osa3 ci && npm --prefix osa2/phonebook ci && npm --prefix osa3 run build:ui
