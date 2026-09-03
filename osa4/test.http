@@ -1,0 +1,39 @@
+@baseUrl = http://localhost:3003/api
+
+### create a user
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "username": "student",
+  "name": "course student",
+  "password": "secret123"
+}
+
+### log in
+# @name login
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "username": "student",
+  "password": "secret123"
+}
+
+### create a blog
+POST {{baseUrl}}/blogs
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+  "title": "testing a blog api",
+  "author": "course student",
+  "url": "https://example.com/blog",
+  "likes": 2
+}
+
+### list blogs
+GET {{baseUrl}}/blogs
+
+### list users
+GET {{baseUrl}}/users
