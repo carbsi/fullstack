@@ -1,9 +1,13 @@
+// import??
+
 require('dotenv').config()
 
 const mongoose = require('mongoose')
 const Person = require('./models/person')
 
 const argumentsFromCommandLine = process.argv.slice(2)
+
+
 
 const listPersons = () => {
   // tyhjä hakuehto hakee kaikki henkilöt
@@ -15,6 +19,8 @@ const listPersons = () => {
   })
 }
 
+
+//MONGODB ADD PERSON
 const addPerson = (name, number) => {
   const person = new Person({ name, number })
 
@@ -32,6 +38,7 @@ const showUsage = () => {
 
 let operation
 
+
 if (argumentsFromCommandLine.length === 0) {
   operation = listPersons()
 } else if (argumentsFromCommandLine.length === 2) {
@@ -42,6 +49,9 @@ if (argumentsFromCommandLine.length === 0) {
   operation = Promise.resolve()
   process.exitCode = 1
 }
+
+
+
 
 operation
   .catch(error => {

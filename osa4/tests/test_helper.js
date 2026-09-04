@@ -15,7 +15,7 @@ const initialBlogs = [
     likes: 5,
   },
 ]
-
+//asd
 const blogsInDb = async () => {
   const blogs = await Blog.find({})
   return blogs.map(blog => blog.toJSON())
@@ -26,6 +26,8 @@ const usersInDb = async () => {
   return users.map(user => user.toJSON())
 }
 
+
+// testien suorittaminen edellyttää, että MongoDB on käynnissä ja että testitietokanta on määritelty ympäristömuu
 const nonExistingId = async () => {
   const blog = new Blog({
     title: 'temporary blog',
@@ -36,6 +38,9 @@ const nonExistingId = async () => {
   await blog.deleteOne()
   return blog._id.toString()
 }
+
+
+
 
 module.exports = {
   initialBlogs,

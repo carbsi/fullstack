@@ -1,6 +1,6 @@
 # Osa 3 – omat oppimismuistiinpanottttttt
 
-tässä ovat osan tärkeimmät asiat lyhyesti. muistiinpanoja voi täydentää myöhemmin.
+tässä ovat osan tärkeimmät asiat lyhyesti. mP
 
 ## Tehtävä 3.12: MongoDB ja Mongoose
 

@@ -10,6 +10,9 @@ const helper = require('./test_helper')
 
 const api = supertest(app)
 
+
+
+// testien suorittaminen edellyttää, että MongoDB on käynnissä ja että testitietokanta on määritelty ympäristömuuttujassa MONGODB_URI.
 let token
 let user
 
@@ -18,6 +21,10 @@ before(async () => {
   await User.init()
 })
 
+
+
+
+// jokainen testi alkaa samasta tietokannan tilasta
 beforeEach(async () => {
   // jokainen testi alkaa samasta tietokannan tilasta
   await Blog.deleteMany({})
@@ -30,6 +37,10 @@ beforeEach(async () => {
     passwordHash,
   }).save()
 
+
+
+
+  // luodaan blogit, jotka kuuluvat käyttäjälle
   const blogObjects = helper.initialBlogs.map(blog => new Blog({
     ...blog,
     user: user._id,
@@ -69,6 +80,9 @@ describe('when blogs exist', () => {
     assert.strictEqual(response.body[0].user.username, 'testuser')
   })
 })
+
+
+
 
 describe('adding a blog', () => {
   test('succeeds with a valid token', async () => {

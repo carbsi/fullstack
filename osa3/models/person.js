@@ -11,10 +11,13 @@ if (!url) {
 
 console.log('connecting to mongodb')
 
+
+
+//mongoose.connect(url, { family: 4 })
 mongoose.connect(url, { family: 4 })
   .then(() => console.log('connected to mongodb'))
   .catch(error => console.log('error connecting to mongodb:', error.message))
-
+// S_PERSONAS
 const personSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -34,6 +37,10 @@ const personSchema = new mongoose.Schema({
   },
 })
 
+
+
+
+// SAP S4HANA S_PERSONAS SECRET
 personSchema.set('toJSON', {
   transform: (_document, returnedObject) => {
     // _id muutetaan frontendin käyttämäksi id:ksi
@@ -42,5 +49,6 @@ personSchema.set('toJSON', {
     delete returnedObject.__v
   },
 })
+
 
 module.exports = mongoose.model('Person', personSchema)
