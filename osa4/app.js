@@ -24,7 +24,7 @@ mongoose.connect(config.MONGODB_URI, {
   .catch(error => logger.error('error connecting to mongodb:', error.message))
 
 app.use(express.json())
-// oma huomio: middlewarejen järjestys määrää mitä tietoa reitit saavat käyttöönsä
+// middlewarejen järjestys määrää reittien käytössä olevat tiedot
 app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
 

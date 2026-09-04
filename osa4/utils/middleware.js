@@ -11,7 +11,7 @@ const requestLogger = (request, _response, next) => {
 const tokenExtractor = (request, _response, next) => {
   const authorization = request.get('authorization')
 
-  // oma huomio: bearer-etuliite poistetaan ennen tokenin tarkistamista
+  // bearer-etuliite poistetaan ennen tarkistusta
   request.token = authorization?.toLowerCase().startsWith('bearer ')
     ? authorization.substring(7)
     : null

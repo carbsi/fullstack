@@ -36,7 +36,7 @@ const personSchema = new mongoose.Schema({
 
 personSchema.set('toJSON', {
   transform: (_document, returnedObject) => {
-    // oma huomio: frontend käyttää id:tä, joten mongoosen _id muutetaan tässä
+    // _id muutetaan frontendin käyttämäksi id:ksi
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v

@@ -6,7 +6,7 @@ const Person = require('./models/person')
 const argumentsFromCommandLine = process.argv.slice(2)
 
 const listPersons = () => {
-  // oma huomio: tyhjä hakuehto hakee kaikki kokoelman henkilöt
+  // tyhjä hakuehto hakee kaikki henkilöt
   return Person.find({}).then(persons => {
     console.log('phonebook:')
     persons.forEach(person => {
@@ -18,7 +18,7 @@ const listPersons = () => {
 const addPerson = (name, number) => {
   const person = new Person({ name, number })
 
-  // oma huomio: onnistumisviesti tulostetaan vasta kun save on valmis
+  // viesti tulostetaan tallennuksen jälkeen
   return person.save().then(() => {
     console.log(`added ${name} number ${number} to phonebook`)
   })
@@ -49,6 +49,6 @@ operation
     process.exitCode = 1
   })
   .finally(() => {
-    // oma huomio: yhteys suljetaan lopuksi, ettei kysely katkea kesken
+    // yhteys suljetaan operaation jälkeen
     return mongoose.connection.close()
   })

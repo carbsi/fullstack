@@ -16,7 +16,7 @@ const createBlog = async page => {
 
 test.describe('blog app', () => {
   test.beforeEach(async ({ page, request }) => {
-    // oma huomio: tietokanta nollataan jotta testit eivät riipu toisistaan
+    // tietokanta nollataan ennen testiä
     const resetResponse = await request.post('http://127.0.0.1:3004/api/testing/reset')
     expect(resetResponse.status()).toBe(204)
 

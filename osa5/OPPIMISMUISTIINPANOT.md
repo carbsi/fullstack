@@ -2,7 +2,7 @@
 
 ## kirjautuminen
 
-backend palauttaa kirjautumisesta tokenin. frontend tallentaa käyttäjän local storageen ja lisää tokenin suojattujen pyyntöjen authorization-headeriin.
+backend palauttaa kirjautumisesta tokenin. frontend tallentaa käyttäjän local storageen ja lisää tokenin suojattujen pyyntöjen auth-headeriin.
 
 ## komponentit ja ref
 

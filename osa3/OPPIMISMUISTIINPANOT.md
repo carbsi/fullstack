@@ -27,5 +27,3 @@ tässä ovat osan tärkeimmät asiat lyhyesti. muistiinpanoja voi täydentää m
 1. route määrittelee mitä tiettyyn url-osoitteeseen ja http-metodiin vastataan.
 2. tietokantaoperaatiot ovat asynkronisia, joten onnistuminen ja virheet käsitellään promisen kautta.
 3. salaisuudet kuuluvat ympäristömuuttujiin, eivät lähdekoodiin tai git-historiaan.
-
-// oma huomio:add me

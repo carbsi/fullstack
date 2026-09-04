@@ -19,7 +19,7 @@ before(async () => {
 })
 
 beforeEach(async () => {
-  // oma huomio: jokainen testi alkaa samasta tunnetusta tietokannan tilasta
+  // jokainen testi alkaa samasta tietokannan tilasta
   await Blog.deleteMany({})
   await User.deleteMany({})
 

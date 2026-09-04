@@ -20,7 +20,7 @@ morgan.token('body', request => {
     : ''
 })
 
-// oma huomio: middlewaret suoritetaan siinä järjestyksessä kuin ne lisätään
+// middlewaret suoritetaan lisäysjärjestyksessä
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
 app.get('/info', (request, response, next) => {
@@ -94,7 +94,7 @@ const unknownEndpoint = (request, response) => {
 app.use(unknownEndpoint)
 
 const errorHandler = (error, _request, response, next) => {
-  // oma huomio: route antaa virheen nextille ja tämä kohta muuttaa sen http-vastaukseksi
+  // virhe muutetaan http-vastaukseksi
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
   }
