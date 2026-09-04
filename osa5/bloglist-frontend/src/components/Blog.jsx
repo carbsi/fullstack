@@ -4,6 +4,7 @@ const Blog = ({ blog, handleLike, handleRemove, canRemove = false }) => {
   const [visible, setVisible] = useState(false)
   const detailsStyle = { display: visible ? '' : 'none' }
 
+  // yksityiskohdat avataan vasta käyttäjän pyynnöstä
   return (
     <article className="blog">
       <div>

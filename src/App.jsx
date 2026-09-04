@@ -1,11 +1,11 @@
 // App.jsx
 
-// Header-komponentti renderöi kurssin nimen
+// Header-komponentti renderöi kurssinimen
 const Header = ({ course }) => {
   return <h1>{course}</h1>;
 };
 
-// Part-komponentti renderöi yhden osan nimen ja tehtävien määrän
+// Part-komponentti renderöi yhden osan nimen ja teht määrän
 const Part = ({ name, exercises }) => {
   return (
     <p>
@@ -14,7 +14,7 @@ const Part = ({ name, exercises }) => {
   );
 };
 
-// Content-komponentti renderöi listan Part-komponentteja
+// Content-komponentti renderöi listan Part-kompoja
 const Content = ({ parts }) => {
   return (
     <div>

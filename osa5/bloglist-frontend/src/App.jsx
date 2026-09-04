@@ -6,7 +6,7 @@ import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 import blogService from './services/blogs'
 import loginService from './services/login'
-
+// karpot's bloglist
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
@@ -16,7 +16,8 @@ const App = () => {
 
   const showNotification = (message, type = 'success') => {
     window.clearTimeout(notificationTimer.current)
-    setNotification({ message, type })
+    const prefix = type === 'error' ? '[ERR]' : '[OK]'
+    setNotification({ message: `${prefix} ${message}`, type })
     notificationTimer.current = window.setTimeout(() => {
       setNotification(null)
     }, 5000)
@@ -29,7 +30,6 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    // local storage pitää kirjautumisen tallessa sivun lataamisen jälkeen
     const savedUser = window.localStorage.getItem('loggedBlogappUser')
 
     if (savedUser) {
@@ -102,10 +102,11 @@ const App = () => {
 
   if (!user) {
     return (
-      <main>
-        <h1>log in to application</h1>
+      <main className="terminal">
+        <h1>$ log in to application</h1>
         <Notification notification={notification} />
         <LoginForm handleLogin={handleLogin} />
+        <footer className="term-footer">karpot@bloglist:~$ _</footer>
       </main>
     )
   }
@@ -113,12 +114,12 @@ const App = () => {
   const sortedBlogs = [...blogs].sort((first, second) => second.likes - first.likes)
 
   return (
-    <main>
-      <h1>blogs</h1>
+    <main className="terminal">
+      <h1>$ ls ~/blogs</h1>
       <Notification notification={notification} />
       <p>
-        {user.name} logged in{' '}
-        <button type="button" onClick={handleLogout}>logout</button>
+        user: {user.name} logged in{' '}
+        <button type="button" onClick={handleLogout}>$ logout</button>
       </p>
 
       <Togglable buttonLabel="create new blog" ref={blogFormRef}>
@@ -136,6 +137,8 @@ const App = () => {
           />
         ))}
       </section>
+
+      <footer className="term-footer">karpot@bloglist:~$ _</footer>
     </main>
   )
 }
