@@ -29,7 +29,7 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    // oma huomio: local storage pitää kirjautumisen tallessa sivun lataamisen jälkeen
+    // local storage pitää kirjautumisen tallessa sivun lataamisen jälkeen
     const savedUser = window.localStorage.getItem('loggedBlogappUser')
 
     if (savedUser) {
