@@ -17,14 +17,17 @@ const createBlog = async page => {
 test.describe('blog app', () => {
   test.beforeEach(async ({ page, request }) => {
     // oma huomio: tietokanta nollataan jotta testit eivät riipu toisistaan
-    await request.post('http://127.0.0.1:3003/api/testing/reset')
-    await request.post('http://127.0.0.1:3003/api/users', {
+    const resetResponse = await request.post('http://127.0.0.1:3004/api/testing/reset')
+    expect(resetResponse.status()).toBe(204)
+
+    const userResponse = await request.post('http://127.0.0.1:3004/api/users', {
       data: {
         username: 'testuser',
         name: 'test user',
         password: 'secret123',
       },
     })
+    expect(userResponse.status()).toBe(201)
     await page.goto('/')
   })
 

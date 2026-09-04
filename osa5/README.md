@@ -24,6 +24,6 @@ npx playwright install chromium
 npm test
 ```
 
-playwright käynnistää frontendin ja backendin automaattisesti. backend tarvitsee paikallisen `osa4/.env`-tiedoston, jossa ovat avaimet `MONGODB_URI` ja `SECRET`.
+playwright käynnistää frontendin portissa 5174 ja backendin portissa 3004 automaattisesti. omat portit estävät käsin käynnistettyä kehityspalvelinta häiritsemästä testejä. backend tarvitsee paikallisen `osa4/.env`-tiedoston, jossa ovat avaimet `MONGODB_URI` ja `SECRET`.
 
 testit käyttävät erillistä `bloglist_test`-tietokantaa ja nollaavat sen ennen jokaista selaintestiä.

@@ -7,6 +7,7 @@
     "start": "cross-env NODE_ENV=production node index.js",
     "dev": "cross-env NODE_ENV=development node --watch index.js",
     "start:test": "cross-env NODE_ENV=test SECRET=test-secret-for-bloglist node index.js",
+    "start:e2e": "cross-env PORT=3004 NODE_ENV=test SECRET=test-secret-for-bloglist node index.js",
     "test": "cross-env NODE_ENV=test SECRET=test-secret-for-bloglist node --test --test-concurrency=1",
     "lint": "eslint ."
   },
