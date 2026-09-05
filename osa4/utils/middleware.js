@@ -27,7 +27,7 @@ const userExtractor = async (request, response, next) => {
 
     const decodedToken = jwt.verify(request.token, config.SECRET)
     const user = await User.findById(decodedToken.id)
-
+    // jos käyttäjää ei löydy, palautetaan 401 Unauthorized
     if (!user) {
       return response.status(401).json({ error: 'token user no longer exists' })
     }
@@ -38,6 +38,7 @@ const userExtractor = async (request, response, next) => {
     next(error)
   }
 }
+
 
 const unknownEndpoint = (_request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
