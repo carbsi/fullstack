@@ -1,5 +1,3 @@
-// import??
-
 require('dotenv').config()
 
 const mongoose = require('mongoose')
@@ -29,6 +27,8 @@ const addPerson = (name, number) => {
     console.log(`added ${name} number ${number} to phonebook`)
   })
 }
+
+
 
 const showUsage = () => {
   console.log('usage:')
