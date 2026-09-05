@@ -2,6 +2,7 @@ const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 const middleware = require('../utils/middleware')
 
+// kaikki blogit, jokaiseen liitetty tekijan kayttajanimi ja nimi
 blogsRouter.get('/', async (_request, response) => {
   const blogs = await Blog
     .find({})
@@ -9,7 +10,7 @@ blogsRouter.get('/', async (_request, response) => {
 
   response.json(blogs)
 })
-
+// uuden blogin luonti vaatii kirjautuneen kayttajan (userExtractor)
 blogsRouter.post('/', middleware.userExtractor, async (request, response) => {
   const user = request.user
   const blog = new Blog({
@@ -21,6 +22,7 @@ blogsRouter.post('/', middleware.userExtractor, async (request, response) => {
   })
 
   const savedBlog = await blog.save()
+  // blogi lisataan myos kayttajan omaan listaan
   user.blogs = user.blogs.concat(savedBlog._id)
   await user.save()
 
@@ -45,7 +47,7 @@ blogsRouter.delete('/:id', middleware.userExtractor, async (request, response) =
 
   response.status(204).end()
 })
-
+// paivitetaan vain sallitut kentat, esim. tykkaysten lisays
 blogsRouter.put('/:id', async (request, response) => {
   const allowedFields = ['title', 'author', 'url', 'likes']
   const updates = Object.fromEntries(

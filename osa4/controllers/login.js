@@ -7,6 +7,9 @@ const config = require('../utils/config')
 loginRouter.post('/', async (request, response) => {
   const { username, password } = request.body
   const user = await User.findOne({ username })
+
+  // jos kayttajaa ei loydy, verrataan silti johonkin ettei
+  // vastausaika paljasta onko kayttajanimi olemassa
   const passwordCorrect = user
     ? await bcrypt.compare(password || '', user.passwordHash)
     : false

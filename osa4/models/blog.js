@@ -20,6 +20,7 @@ const blogSchema = new mongoose.Schema({
   },
 })
 
+// mongon _id ja __v piilotetaan, id-kentta on frontendia varten
 blogSchema.set('toJSON', {
   transform: (_document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
@@ -27,5 +28,5 @@ blogSchema.set('toJSON', {
     delete returnedObject.__v
   },
 })
-
+// blogSchema.set('toJSON', {
 module.exports = mongoose.model('Blog', blogSchema)
