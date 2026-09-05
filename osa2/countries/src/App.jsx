@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+// kompot
 import getAllCountries from "./services/countries";
 import CountryFilter from "./components/CountryFilter";
 import Content from "./components/Content";
@@ -9,26 +10,35 @@ const App = () => {
   const [allCountries, setAllCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
 
+  // haetaan kaikki maat kerran kun App ensimmäisen kerran renderöityy
   useEffect(() => {
     getAllCountries().then((allCountries) => {
       setAllCountries(allCountries);
     });
   }, []);
 
+
+
+  // suodatetaan maalista aina kun hakukenttää muutetaan
   const handleFilterChange = (event) => {
-    const newFilter = event.target.value;
+    const hakusana = event.target.value;
+
+    // tyhja hakukentta = nayta kaikki, muuten suodata nimen mukaan
     const countries =
-      newFilter.trim().length === 0
+      hakusana.trim().length === 0
         ? allCountries
         : allCountries.filter((country) =>
             country.name.common
               .toLowerCase()
-              .includes(newFilter.trim().toLowerCase())
+              .includes(hakusana.trim().toLowerCase())
           );
-    setFilter(newFilter);
+
+          // asetetaan suodatettu lista ja hakusana tilaan
+    setFilter(hakusana);
     setFilteredCountries(countries);
   };
 
+  // kun kayttaja klikkaa "show" yhdelle maalle listassa
   const selectCountry = (country) => {
     setFilteredCountries([country]);
   };

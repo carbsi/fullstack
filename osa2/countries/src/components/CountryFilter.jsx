@@ -1,7 +1,7 @@
 const CountryFilter = ({ filter, handleFilterChange }) => {
   return (
     <div>
-      find countries
+      etsi maita
       <input value={filter} onChange={handleFilterChange} />
     </div>
   );

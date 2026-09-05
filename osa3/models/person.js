@@ -11,9 +11,8 @@ if (!url) {
 
 console.log('connecting to mongodb')
 
+// mongoose.connect(url, { family: 4 })
 
-
-//mongoose.connect(url, { family: 4 })
 mongoose.connect(url, { family: 4 })
   .then(() => console.log('connected to mongodb'))
   .catch(error => console.log('error connecting to mongodb:', error.message))
@@ -38,9 +37,9 @@ const personSchema = new mongoose.Schema({
 })
 
 
+// S_PERSONAS
 
-
-// SAP S4HANA S_PERSONAS SECRET
+// S_PERSONAS SECRET
 personSchema.set('toJSON', {
   transform: (_document, returnedObject) => {
     // _id muutetaan frontendin käyttämäksi id:ksi

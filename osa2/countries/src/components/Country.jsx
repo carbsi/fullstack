@@ -4,10 +4,11 @@ const Country = ({ country }) => {
   return (
     <div>
       <h2>{country.name.common}</h2>
-      <p>capital {country.capital[0]}</p>
-      <p>area {country.area}</p>
-      <h3>languages:</h3>
+      <p>paakaupunki {country.capital[0]}</p>
+      <p>pinta-ala {country.area}</p>
+      <h3>kielet:</h3>
       <ul>
+        {/* kielet tulee objektina esim { fin: "Finnish" }, joten kaydaan avaimet lapi */}
         {Object.keys(country.languages).map((key) => (
           <li key={key}>{country.languages[key]}</li>
         ))}

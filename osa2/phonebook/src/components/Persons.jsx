@@ -2,7 +2,7 @@ const Persons = ({ filterStr, allPersons, handleRemove }) => {
   const filteredPersons = () => {
     return allPersons.filter((person) =>
       person.name.toLowerCase().includes(filterStr.toLowerCase().trim())
-    );
+    ); // suodatetaan henkilöt nimen perusteella, jos filterStr ei ole tyhjä
   };
 
   const persons =

@@ -1,6 +1,6 @@
 const Notification = ({ notification }) => {
   if (notification === null) {
-    return null;
+    return null;  // jos notification on null, ei näytetä mitään
   }
 
   return (

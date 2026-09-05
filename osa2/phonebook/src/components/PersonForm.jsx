@@ -1,5 +1,5 @@
 const PersonForm = ({ newPerson, handleSubmit, handleFormChange }) => {
-  return (
+  return (  // lomake, jossa käyttäjä voi syöttää uuden henkilön nimen ja puhelinnumeron
     <form onSubmit={handleSubmit}>
       <div>
         name:
