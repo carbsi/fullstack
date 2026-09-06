@@ -5,7 +5,6 @@ const Togglable = forwardRef(function Togglable({ buttonLabel, children }, ref) 
 
   const toggleVisibility = () => setVisible(!visible)
 
-  // ref sulkee lomakkeen tallennuksen jälkeen
   useImperativeHandle(ref, () => ({ toggleVisibility }))
 
   return (

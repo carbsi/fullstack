@@ -3,6 +3,7 @@ import axios from 'axios'
 const baseUrl = '/api/blogs'
 let token = null
 
+// tokenin asettaa App.jsx kirjautumisen jalkeen
 const setToken = newToken => {
   token = newToken ? `Bearer ${newToken}` : null
 }

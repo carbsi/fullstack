@@ -10,12 +10,13 @@ const testingRouter = require('./controllers/testing')
 
 const app = express()
 
+
 mongoose.set('strictQuery', false)
 
 if (!config.MONGODB_URI) {
   throw new Error('mongodb connection string is missing')
 }
-
+// family 4 pakottaa ipv4n atlas ei aina toimi ipv6lla
 mongoose.connect(config.MONGODB_URI, {
   dbName: config.DB_NAME,
   family: 4,
@@ -31,11 +32,11 @@ app.use(middleware.tokenExtractor)
 app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
-
+// testireitti vain testiajoja varten, ei tuotannossa
 if (process.env.NODE_ENV === 'test') {
   app.use('/api/testing', testingRouter)
 }
-
+// nama kaksi aina viimeisena, jotta ne nappaavat kaiken muun jalkeen
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
 

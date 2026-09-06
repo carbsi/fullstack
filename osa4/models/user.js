@@ -15,6 +15,8 @@ const userSchema = new mongoose.Schema({
   }],
 })
 
+
+// passwordHash ei saa koskaan paatya frontendille asti
 userSchema.set('toJSON', {
   transform: (_document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()

@@ -6,7 +6,7 @@ import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 import blogService from './services/blogs'
 import loginService from './services/login'
-// karpot's bloglist
+
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
@@ -16,8 +16,7 @@ const App = () => {
 
   const showNotification = (message, type = 'success') => {
     window.clearTimeout(notificationTimer.current)
-    const prefix = type === 'error' ? '[ERR]' : '[OK]'
-    setNotification({ message: `${prefix} ${message}`, type })
+    setNotification({ message, type })
     notificationTimer.current = window.setTimeout(() => {
       setNotification(null)
     }, 5000)
@@ -102,11 +101,11 @@ const App = () => {
 
   if (!user) {
     return (
-      <main className="terminal">
-        <h1>$ log in to application</h1>
+      <main>
+        <h1>log in to application</h1>
         <Notification notification={notification} />
         <LoginForm handleLogin={handleLogin} />
-        <footer className="term-footer">karpot@bloglist:~$ _</footer>
+        <footer className="page-footer">karpot's bloglist &mdash; est. 2026</footer>
       </main>
     )
   }
@@ -114,12 +113,12 @@ const App = () => {
   const sortedBlogs = [...blogs].sort((first, second) => second.likes - first.likes)
 
   return (
-    <main className="terminal">
-      <h1>$ ls ~/blogs</h1>
+    <main>
+      <h1>Blogs</h1>
       <Notification notification={notification} />
       <p>
-        user: {user.name} logged in{' '}
-        <button type="button" onClick={handleLogout}>$ logout</button>
+        {user.name} logged in{' '}
+        <button type="button" onClick={handleLogout}>logout</button>
       </p>
 
       <Togglable buttonLabel="create new blog" ref={blogFormRef}>
@@ -138,7 +137,7 @@ const App = () => {
         ))}
       </section>
 
-      <footer className="term-footer">karpot@bloglist:~$ _</footer>
+      <footer className="page-footer">karpot's bloglist &mdash; est. 2026</footer>
     </main>
   )
 }
